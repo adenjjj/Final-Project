@@ -25,6 +25,13 @@ export default function Recipes() {
                         <p>{recipe.ingredients}</p>
                         <h4>Instructions:</h4>
                         <p>{recipe.instructions}</p>
+                        {recipe.comment && (
+                            <>
+                                <h4>Comment:</h4>
+                                <p>{recipe.comment}</p>
+                             </>
+                        )}
+                        <Link href={`/recipe/${index}`}><button>Comment</button></Link>
                     </div>
                 ))
             ) : (
