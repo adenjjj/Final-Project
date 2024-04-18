@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
+import Router from 'next/router';
 
-export default function recipes() {
+export default function Recipes() {
     const [recipes, setRecipes] = useState([]);
 
     useEffect(() => {
@@ -15,7 +16,11 @@ export default function recipes() {
             {recipes.length > 0 ? (
                 recipes.map((recipe, index) => (
                     <div key={index}>
-                        <h2>{recipe.title}</h2>
+                        <h2>
+                            <Link href={`/add-recipe?edit=true&index=${index}`}>
+                                <a>{recipe.title}</a>
+                            </Link>
+                        </h2>
                         <h4>Ingredients:</h4>
                         <p>{recipe.ingredients}</p>
                         <h4>Instructions:</h4>

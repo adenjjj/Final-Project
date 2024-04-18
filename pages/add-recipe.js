@@ -1,23 +1,36 @@
-import { useState } from 'react';
-import Router from 'next/router';
+import { useState, useEffect } from 'react';
+import { useRouter } from 'next/router';
 
 export default function AddRecipe() {
+    const router = useRouter();
     const [title, setTitle] = useState('');
     const [ingredients, setIngredients] = useState('');
     const [instructions, setInstructions] = useState('');
 
+    useEffect(() => {
+        if (router.query.edit && router.query.index) {
+            const recipes = JSON.parse(localStorage.getItem('recipes')) || [];
+            const recipe = recipes[router.query.index];
+            if (recipe) {
+                setTitle(recipe.title);
+                setIngredients(recipe.ingredients);
+                setInstructions(recipe.instructions);
+            }
+        }
+    }, [router.query]);
+
     const handleSubmit = (event) => {
         event.preventDefault();
         const newRecipe = { title, ingredients, instructions };
-        addRecipe(newRecipe);
-        Router.push('/recipes');  // Redirect to homepage after adding the recipe
-    };
-
-    function addRecipe(recipe) {
         const recipes = JSON.parse(localStorage.getItem('recipes')) || [];
-        recipes.push(recipe);
+        if (router.query.edit && router.query.index !== undefined) {
+            recipes[router.query.index] = newRecipe; // Update the existing recipe
+        } else {
+            recipes.push(newRecipe); // Add a new recipe
+        }
         localStorage.setItem('recipes', JSON.stringify(recipes));
-    }
+        router.push('/recipes');  // Redirect to homepage after saving the recipe
+    };
 
     return (
         <form onSubmit={handleSubmit}>
@@ -40,7 +53,7 @@ export default function AddRecipe() {
                 placeholder="Instructions"
                 required
             />
-            <button type="submit">Add Recipe</button>
+            <button type="submit">{router.query.edit ? 'Update Recipe' : 'Add Recipe'}</button>
         </form>
     );
 }
