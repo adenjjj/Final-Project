@@ -17,7 +17,7 @@ export default function Recipes() {
                 recipes.map((recipe, index) => (
                     <div key={index}>
                         <h2>
-                            <Link href={`/add-recipe?edit=true&index=${index}`}>
+                            <Link href={`/add-recipe?edit=true&index=${index}`} legacyBehavior>
                                 <a>{recipe.title}</a>
                             </Link>
                         </h2>
@@ -25,13 +25,13 @@ export default function Recipes() {
                         <p>{recipe.ingredients}</p>
                         <h4>Instructions:</h4>
                         <p>{recipe.instructions}</p>
-                        {recipe.comment && (
-                            <>
-                                <h4>Comment:</h4>
-                                <p>{recipe.comment}</p>
-                             </>
-                        )}
-                        <Link href={`/recipe/${index}`}><button>Comment</button></Link>
+                        <h4>Comments:</h4>
+                        {recipe.comments && recipe.comments.map((cmt, idx) => (
+                            <p key={idx}>{cmt}</p>
+                        ))}
+                        <Link href={`/recipes/${index}`} legacyBehavior>
+                            <button>Comment</button>
+                        </Link>
                     </div>
                 ))
             ) : (
