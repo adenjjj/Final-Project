@@ -29,7 +29,9 @@ export default function Recipes() {
                         {recipe.comments && recipe.comments.map((cmt, idx) => (
                             <p key={idx}>{cmt}</p>
                         ))}
-                        <Link href={`/comments?id=${index}`} legacyBehavior>View/Add Comments</Link>
+                        <Link href={`/recipes/${index}`} legacyBehavior>
+                            <button>Comment</button>
+                        </Link>
                     </div>
                 ))
             ) : (
