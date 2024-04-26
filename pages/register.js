@@ -18,12 +18,24 @@ export default function Register() {
     };
 
     return (
-        <form onSubmit={handleRegister}>
-            <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} placeholder="Username" required />
-            <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Email" required />
-            <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Password" required />
-            <button type="submit">Register</button>
-            <p>Already a member? <Link href="/" legacyBehavior><a>Login here</a></Link></p>
-        </form>
+        <div className="container mt-5">
+            <h2 className="mb-3">Register</h2>
+            <form onSubmit={handleRegister} className="needs-validation" noValidate>
+                <div className="mb-3">
+                    <label htmlFor="username" className="form-label">Username</label>
+                    <input type="text" className="form-control" id="username" value={username} onChange={(e) => setUsername(e.target.value)} placeholder="Enter your username" required />
+                </div>
+                <div className="mb-3">
+                    <label htmlFor="email" className="form-label">Email</label>
+                    <input type="email" className="form-control" id="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Enter your email" required />
+                </div>
+                <div className="mb-3">
+                    <label htmlFor="password" className="form-label">Password</label>
+                    <input type="password" className="form-control" id="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Enter your password" required />
+                </div>
+                <button type="submit" className="btn btn-primary">Register</button>
+                <p className="mt-3">Already a member? <Link href="/" legacyBehavior><a className="link-primary">Login here</a></Link></p>
+            </form>
+        </div>
     );
 }
